@@ -6,12 +6,10 @@ package ionelcondor;
 
 import java.util.Scanner;
 
-
-import java.util.Scanner;
-
 public class AgendaOfNames {
 
     String[] nameAgenda = new String[50];
+    int index;
 
 
     public static void main(String[] args) {
@@ -95,16 +93,65 @@ public class AgendaOfNames {
 
     private void createItem() {
 
+        String val = readName();
+        if(index<nameAgenda.length){
+            nameAgenda[index] = val;
+            index++;
+        }
+        else
+        {
+            System.out.println("debug: try to find slots");
+            for(int i = 0; i < nameAgenda.length; i++){
+                if(nameAgenda[i] == null){
+                    nameAgenda[i] = val;
+                    System.out.println("debug: slot found, inserted ok");
+                    break;
+                }
+            }
+        }
+
     }
 
 
     private void updateItem() {
         //search and if found do an update
-
+        boolean isFound = false;
+        String oldName = readName();
+        for(int i = 0; i<nameAgenda.length; i++){
+            if(nameAgenda[i] != null){
+                if(nameAgenda[i].equals(oldName)){
+                    System.out.println("Am gasit numele, introduceti noul nume");
+                    String newName = readName();
+                    nameAgenda[i] = newName;
+                    isFound = true;
+                    System.out.println("Schimbare de nume efectuata cu succes");
+                }
+            }
+        }
+        if(!isFound){
+            System.out.println("Nume inexistent in agenda!");
+        }
     }
 
 
     private void deleteItem() {
+
+        boolean isFound = false;
+        String oldName = readName();
+        for(int i = 0; i<nameAgenda.length; i++){
+            if(nameAgenda[i] != null){
+                if(nameAgenda[i].equals(oldName)){
+                    System.out.println("Sterge numele");
+                    String newName = readName();
+                    nameAgenda[i] = null;
+                    isFound = true;
+                    System.out.println("Stergere de nume efectuata cu succes");
+                }
+            }
+        }
+        if(!isFound){
+            System.out.println("Nume inexistent in agenda!");
+        }
 
     }
 
